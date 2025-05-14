@@ -17,12 +17,18 @@ class Admin extends React.Component {
             showSecret: false,
             redirected: false,
             token: "",
+            redirectLogs: true,
             userList: "",
             isLoading: true,
             url: process.env.REACT_APP_API_ADDRESS,
         };
-        this.toggleSecret = this.toggleSecret.bind(this)
+        this.toggleSecret = this.toggleSecret.bind(this);
+        this.goToLogs = this.goToLogs.bind(this);
     };
+
+    goToLogs() {
+        this.setState({ redirectLogs: true });
+    }
 
     componentDidMount() {
         if (tools.checkIfConnected()) {
