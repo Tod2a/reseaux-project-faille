@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect } from 'react-router-dom'
 
-
 // core components
 import '../../assets/css/main.css'
 
@@ -18,7 +17,7 @@ class Login extends React.Component {
       redirectedAdmin: false,
       mail: "",
       password: "",
-      url: "http://localhost:3001"
+      url: process.env.REACT_APP_API_ADDRESS,
     };
     this.handleConnect = this.handleConnect.bind(this)
     this.handleChange = this.handleChange.bind(this)

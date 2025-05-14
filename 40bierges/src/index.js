@@ -14,7 +14,7 @@ ReactDOM.render(
 
   <BrowserRouter>
     <Switch>
-      
+
       <Route
         exact
         path="/admin"
