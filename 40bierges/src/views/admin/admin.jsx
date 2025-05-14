@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import '../../assets/css/main.css'
 import axios from "axios";
 import tools from "../../toolBox"
+import Cookies from 'js-cookie';
 
 import ButtonUser from "../../components/ButtonUser";
 
@@ -61,6 +62,11 @@ class Admin extends React.Component {
         });
     }
 
+    logout = () => {
+        Cookies.remove('Token', { path: '/' });
+        this.setState({ redirected: true });
+    }
+
     promisedSetState = (newState) => new Promise(resolve => this.setState(newState, resolve));
 
     render() {
@@ -69,8 +75,11 @@ class Admin extends React.Component {
         return (
             <>
                 <div>
-                    Bienvenu sur votre page ultime cher Admin !
+                    Bienvenue sur votre page ultime cher Admin !
                     <ButtonUser handleClick={this.toggleSecret} />
+                    <button onClick={this.logout} style={{ marginLeft: '1rem' }}>
+                        Logout
+                    </button>
                     {this.state.showSecret ? <div>{this.state.userList[0].secret}</div> : <div>***************</div>}
                 </div>
                 <div>
