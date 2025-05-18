@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom'
 import '../assets/css/main.css'
 import axios from "axios";
 import tools from "../toolBox"
+import Cookies from 'js-cookie';
 
 import ButtonUser from "../components/ButtonUser";
 
@@ -24,6 +25,7 @@ class Index extends React.Component {
     };
     this.toggleSecret = this.toggleSecret.bind(this)
   };
+
 
   componentDidMount() {
     if (tools.checkIfConnected()) {
@@ -55,6 +57,11 @@ class Index extends React.Component {
     });
   }
 
+  logout = () => {
+    Cookies.remove('Token', { path: '/' });
+    this.setState({ redirected: true });
+  }
+
   promisedSetState = (newState) => new Promise(resolve => this.setState(newState, resolve));
 
   render() {
@@ -68,6 +75,9 @@ class Index extends React.Component {
           <ButtonUser handleClick={this.toggleSecret} />
           {this.state.showSecret ? <div>{this.state.secret}</div> : <div>***************</div>}
         </div>
+        <button onClick={this.logout} style={{ marginLeft: '1rem' }}>
+          Logout
+        </button>
       </>
     )
   }
