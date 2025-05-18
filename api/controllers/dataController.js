@@ -7,8 +7,8 @@ let blogMessages = [];
 exports.connectUser = (req, res) => {
     let body = req.body;
     let user = null;
-    console.log("test")
 
+    console.log(body.password);
     if (!toolbox.checkMail(body.mail)) {
         res.status(400).send('The mail doesn\'t use a correct format');
         return;
@@ -21,7 +21,7 @@ exports.connectUser = (req, res) => {
     });
 
     if (user == null) {
-        res.status(404).send(user+' does not exist');
+        res.status(404).send('This user does not exist');
     } else {
         const hashedInput = toolbox.badHash(body.password);
         if (hashedInput === Number(user.password)) {
