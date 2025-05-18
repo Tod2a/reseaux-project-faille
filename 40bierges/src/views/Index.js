@@ -20,7 +20,7 @@ class Index extends React.Component {
       secret: "",
       isAdmin: false,
       isLoading: true,
-      url: "http://localhost:3001"
+      url: process.env.REACT_APP_API_ADDRESS
     };
     this.toggleSecret = this.toggleSecret.bind(this)
   };
@@ -59,7 +59,7 @@ class Index extends React.Component {
 
   render() {
     if (this.state.redirected) return (<Redirect to="/login" />)
-    if (this.state.isAdmin) return (<Redirect to="/admin" />) 
+    if (this.state.isAdmin) return (<Redirect to="/admin" />)
     if (this.state.isLoading) return (<p>Please wait...</p>);
     return (
       <>
