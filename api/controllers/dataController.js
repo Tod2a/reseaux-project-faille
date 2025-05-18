@@ -24,6 +24,7 @@ exports.connectUser = (req, res) => {
     } else {
         const hashedInput = toolbox.badHash(body.password);
         if (hashedInput === Number(user.password)) {
+            console.log("Je me suis connecté youpi !");
             const token = jwt.sign({ user_id: user.id, user_role: user.role }, process.env.ACCESS_TOKEN_SECRET);
             res.status(200).json({ token, role: user.role });
         } else {
