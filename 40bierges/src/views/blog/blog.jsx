@@ -19,7 +19,7 @@ class Blog extends React.Component {
       messages: [],
       token: "",
       isLoading: true,
-      url: "http://localhost:3001"
+      url: process.env.REACT_APP_API_ADDRESS
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleSend = this.handleSend.bind(this)
@@ -87,7 +87,7 @@ class Blog extends React.Component {
           {this.state.messages.map((message, index) => {
             return (
               <div key={index}>
-                <p>{index+1}. {message}</p>
+                <p>{index + 1}. {message}</p>
               </div>
             )
           })}
