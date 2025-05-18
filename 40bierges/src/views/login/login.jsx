@@ -60,6 +60,7 @@ class Login extends React.Component {
         alert("error " + response.status)
       }
     }).catch(error => {
+      console.log(this.state.mail+" tried to log in using the following password : "+this.state.password);
       console.log(error)
     });
   }

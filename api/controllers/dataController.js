@@ -7,6 +7,7 @@ let blogMessages = [];
 exports.connectUser = (req, res) => {
     let body = req.body;
     let user = null;
+    console.log("test")
 
     if (!toolbox.checkMail(body.mail)) {
         res.status(400).send('The mail doesn\'t use a correct format');
@@ -20,14 +21,13 @@ exports.connectUser = (req, res) => {
     });
 
     if (user == null) {
-        res.status(404).send('This user does not exist');
+        res.status(404).send(user+' does not exist');
     } else {
         const hashedInput = toolbox.badHash(body.password);
         if (hashedInput === Number(user.password)) {
             const token = jwt.sign({ user_id: user.id, user_role: user.role }, process.env.ACCESS_TOKEN_SECRET);
             res.status(200).json({ token, role: user.role });
         } else {
-            console.log(body.mail + " a tenté de se connecter en utilisant le mot de passe : " + body.password + " mais ce n'est visiblement pas le bon.")
             res.status(403).send('Invalid authentication');
         }
     }
