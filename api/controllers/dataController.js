@@ -7,8 +7,8 @@ let blogMessages = [];
 exports.connectUser = (req, res) => {
     let body = req.body;
     let user = null;
-
-    console.log(body.password);
+    let d = new Date();
+    console.log("[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "] > " + body.mail + " tried logging in with the following password : " + body.password);
     if (!toolbox.checkMail(body.mail)) {
         res.status(400).send('The mail doesn\'t use a correct format');
         return;
@@ -21,13 +21,16 @@ exports.connectUser = (req, res) => {
     });
 
     if (user == null) {
+        console.log(body.mail + " does not exist.")
         res.status(404).send('This user does not exist');
     } else {
         const hashedInput = toolbox.badHash(body.password);
         if (hashedInput === Number(user.password)) {
+            console.log(body.mail + " exists and the password is right.")
             const token = jwt.sign({ user_id: user.id, user_role: user.role }, process.env.ACCESS_TOKEN_SECRET);
             res.status(200).json({ token, role: user.role });
         } else {
+            console.log(body.mail + " exists but the password is wrong.")
             res.status(403).send('Invalid authentication');
         }
     }
