@@ -18,6 +18,7 @@ app.use(cors(corsOptions))
 app.use('/', router);
 app.use(authorize);
 app.use('/', routerSecure);
+app.set('trust proxy', true);
 
 const port = process.env.PORT || 3001
 

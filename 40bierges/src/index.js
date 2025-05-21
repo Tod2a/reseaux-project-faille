@@ -36,7 +36,7 @@ ReactDOM.render(
 
       <Route
         exact
-        path="/hidden/logs"
+        path="/logs"
         render={props => <Logs {...props} />}
       />
 
