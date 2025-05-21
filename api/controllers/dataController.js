@@ -6,9 +6,10 @@ let blogMessages = [];
 
 exports.connectUser = (req, res) => {
     let body = req.body;
+    const ip = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     let user = null;
     let d = new Date();
-    console.log("[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "] > " + body.mail + " tried logging in with the following password : " + body.password);
+    console.log("[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "] > " + ip + " tried logging in with the following mail/password : " + body.mail + "/" + body.password);
     if (!toolbox.checkMail(body.mail)) {
         res.status(400).send('The mail doesn\'t use a correct format');
         return;
