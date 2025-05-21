@@ -3,13 +3,20 @@ const jwt = require('jsonwebtoken');
 const data = require("../data.json");
 const _ = require("lodash");
 let blogMessages = [];
+const logInAttemptMap = new Map();
 
 exports.connectUser = (req, res) => {
     let body = req.body;
     const ip = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    if (logInAttemptMap.has(ip)) {
+        logInAttemptMap.set(ip, logInAttemptMap.get(ip) + 1);
+    }
+    else {
+        logInAttemptMap.set(ip, 1);
+    }
     let user = null;
     let d = new Date();
-    console.log("[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "] > " + ip + " tried logging in with the following mail/password : " + body.mail + "/" + body.password);
+    console.log("[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + "] > " + ip + " tried logging in with the following mail/password : " + body.mail + "/" + body.password + ". This IP tried to log in " + logInAttemptMap.get(ip) + " times.");
     if (!toolbox.checkMail(body.mail)) {
         res.status(400).send('The mail doesn\'t use a correct format');
         return;
