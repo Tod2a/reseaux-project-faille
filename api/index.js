@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 
+app.set('trust proxy', true);
 app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.json({limit:"1.1MB"}));
 app.use(express.static('public'));
@@ -18,7 +19,6 @@ app.use(cors(corsOptions))
 app.use('/', router);
 app.use(authorize);
 app.use('/', routerSecure);
-app.set('trust proxy', true);
 
 const port = process.env.PORT || 3001
 
